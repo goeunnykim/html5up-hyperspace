@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000px" height="500px" viewBox="0 0 1000 500" zoomAndPan="disable" preserveAspectRatio="none">
     <style type="text/css"><![CDATA[
 		line {
-			/* 이 부분의 색상을 변경했습니다 */
 			stroke: #D9D9D9;
 			stroke-width: 1px;
 		}
