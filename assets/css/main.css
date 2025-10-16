@@ -213,10 +213,13 @@ input,
 select,
 textarea {
 	color: rgba(255, 255, 255, 0.55);
-	font-family: Arial, Helvetica, sans-serif;
+	/* Prefer a Korean-friendly webfont; fallback to system fonts */
+	font-family: 'Noto Sans KR', 'Noto Sans', Arial, Helvetica, sans-serif;
 	font-size: 16.5pt;
 	font-weight: normal;
 	line-height: 1.75;
+	/* Subtle letter-spacing tuned for Korean + Latin mixed content */
+	letter-spacing: 0.01em;
 }
 
 @media screen and (max-width: 1680px) {
@@ -1960,7 +1963,8 @@ button,
 	font-size: 0.6em;
 	font-weight: bold;
 	height: calc(4.75em + 2px);
-	letter-spacing: 0.25em;
+	/* Reduced letter-spacing so buttons look less stretched */
+	letter-spacing: 0.08em;
 	line-height: 4.75em;
 	outline: 0;
 	padding: 0 3.75em;
@@ -3193,6 +3197,8 @@ body.is-ie .spotlights>section {
 	-ms-justify-content: center;
 	justify-content: center;
 	width: 50em;
+	/* Standard flex for modern browsers, keep -ms- for legacy IE */
+	flex: 1 1 auto;
 	-ms-flex: 1;
 }
 
@@ -3353,7 +3359,7 @@ table.alt tfoot {
 .wrapper>.inner {
 	padding: 5em 5em 3em 5em;
 	max-width: 100%;
-	width: 75em;
+	width: 100em;
 }
 
 @media screen and (max-width: 1680px) {
@@ -4152,6 +4158,23 @@ body.is-preload #sidebar nav ul li {
 	margin-bottom: 5px;
 }
 
+/* 날짜 파트 스타일: 시작/구분자/종료 */
+.timeline-date .date-start {
+	font-size: 1em; /* base (inherits from timeline-date) */
+	font-weight: 700;
+}
+.timeline-date .date-sep {
+	display: inline-block;
+	margin: 0 0.4em;
+	color: #3A6A9F;
+	font-size: 0.95em;
+}
+.timeline-date .date-end {
+	font-size: 0.85em; /* slightly smaller than start */
+	font-weight: 600;
+	color: #2f567f;
+}
+
 /* 세부 설명 */
 .timeline-description {
 	font-size: 16px;
@@ -4161,3 +4184,33 @@ body.is-preload #sidebar nav ul li {
 }
 
 /* ----- Timeline CSS End ----- */
+/* Prevent images from being draggable (also handled in JS) */
+img {
+	-webkit-user-drag: none;
+	user-select: none;
+}
+
+/* 기본적으로 콘텐츠 계층의 텍스트 선택 차단 */
+.content, .content * ,
+.timeline-description, .timeline-date,
+h1, h2, h3, h4, h5, h6,
+p, div, span {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 폼/링크/선택 허용 영역은 예외로 둠 */
+input, textarea, select, a, .selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Small responsive typography tweaks */
+@media screen and (max-width: 736px) {
+	body { letter-spacing: 0.005em; }
+	h1, h2 { letter-spacing: 0.01em; }
+}

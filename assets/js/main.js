@@ -188,3 +188,20 @@
 			});
 
 })(jQuery);
+
+// 추가: 이미지/엘리먼트 드래그 방지 (브라우저 호환성 보강)
+document.addEventListener('DOMContentLoaded', function() {
+	// Prevent drag on images and anchor elements
+	document.querySelectorAll('img, a').forEach(function(el) {
+		el.setAttribute('draggable', 'false');
+		el.addEventListener('dragstart', function(e) { e.preventDefault(); });
+	});
+
+	// 우클릭(컨텍스트 메뉴) 차단: 폼 입력 요소는 예외로 둠
+	document.addEventListener('contextmenu', function(e) {
+		var t = e.target;
+		// 폼 허용(원래), 링크와 .allow-context(직접 지정한 영역)도 허용
+		if (t.closest && (t.closest('input, textarea, select, a') || t.closest('.allow-context'))) return;
+		e.preventDefault();
+	});
+});
