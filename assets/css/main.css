@@ -4214,3 +4214,61 @@ input, textarea, select, .selectable {
 	body { letter-spacing: 0.005em; }
 	h1, h2 { letter-spacing: 0.01em; }
 }
+
+/* YouTube background for #intro */
+#intro {
+	position: relative;
+	overflow: hidden;
+	/* Make the base background white so the page reads as light before the video appears */
+	background-color: #ffffff;
+}
+
+#intro .yt-bg-wrapper {
+	position: absolute;
+	inset: 0;
+	z-index: 0; /* behind content */
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+#intro .yt-bg-wrapper.visible {
+	opacity: 1;
+}
+
+/* A semi-opaque white overlay to wash out the video and make text legible.
+   Uses backdrop-filter where supported for extra blur; otherwise the iframe is blurred directly. */
+#intro .yt-bg-wrapper:before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(255,255,255,0.75); /* stronger white wash */
+	pointer-events: none;
+	z-index: 1; /* sits above the iframe but below content (.inner has z-index:2) */
+	-webkit-backdrop-filter: blur(6px) saturate(120%);
+	backdrop-filter: blur(6px) saturate(120%);
+	transition: background 1s ease-in-out, backdrop-filter 1s ease-in-out;
+}
+
+#intro .yt-bg-wrapper iframe {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.15);
+	min-width: 140%;
+	min-height: 140%;
+	width: auto;
+	height: auto;
+	/* Stronger blur so the video becomes an abstract, soft background.
+	   Keep brightness neutral; the white overlay does the lightening. */
+	filter: blur(12px) brightness(1) saturate(0.95);
+	-webkit-filter: blur(12px) brightness(1) saturate(0.95);
+	border: 0;
+	z-index: 0;
+}
+
+/* Ensure content sits above the video and overlay */
+#intro .inner {
+	position: relative;
+	z-index: 2;
+}

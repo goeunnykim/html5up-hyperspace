@@ -204,4 +204,36 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (t.closest && (t.closest('input, textarea, select, a') || t.closest('.allow-context'))) return;
 		e.preventDefault();
 	});
+
+	// YouTube background injection after 15s
+	(function() {
+		var DELAY_MS = 3000; // 15 seconds
+		var VIDEO_ID = 'D9S7IF-LFQ8'; // <- Replace with your YouTube video id
+		var intro = document.getElementById('intro');
+		if (!intro || !VIDEO_ID) return;
+
+		setTimeout(function() {
+			// don't inject twice
+			if (intro.querySelector('.yt-bg-wrapper')) return;
+
+			var wrapper = document.createElement('div');
+			wrapper.className = 'yt-bg-wrapper';
+
+			// YouTube embed URL for autoplay, muted, loop
+			// To loop a single video, playlist param with same video is used
+			var src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&controls=0&showinfo=0&rel=0&modestbranding=1&mute=1&loop=1&playlist=' + VIDEO_ID + '&playsinline=1';
+
+			var iframe = document.createElement('iframe');
+			iframe.setAttribute('src', src);
+			iframe.setAttribute('allow', 'autoplay; encrypted-media');
+			iframe.setAttribute('frameborder', '0');
+			iframe.setAttribute('allowfullscreen', '');
+
+			wrapper.appendChild(iframe);
+			intro.insertBefore(wrapper, intro.firstChild);
+
+			// Force reflow then fade in
+			setTimeout(function() { wrapper.classList.add('visible'); }, 50);
+		}, DELAY_MS);
+	})();
 });
