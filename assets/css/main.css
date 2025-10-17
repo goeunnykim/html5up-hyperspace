@@ -4194,7 +4194,7 @@ img {
 .content, .content * ,
 .timeline-description, .timeline-date,
 h1, h2, h3, h4, h5, h6,
-p, div, span {
+a, p, div, span {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -4202,7 +4202,7 @@ p, div, span {
 }
 
 /* 폼/링크/선택 허용 영역은 예외로 둠 */
-input, textarea, select, a, .selectable {
+input, textarea, select, .selectable {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
